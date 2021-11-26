@@ -12,7 +12,34 @@
   <body>
     <script src="js/three.js"></script>
     <script>
-      // Our Javascript will go here.
+      // 장면,카메라, 렌더러 기본 요소
+      const scene = new THREE.Scene(); // 장면
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      ); // 카메라
+
+      const renderer = new THREE.WebGLRenderer(); // 렌더러
+      renderer.setSize(window.innerWidth, window.innerHeight); // 렌더러 크기 정하기 -> 브라우저 사이즈
+      document.body.appendChild(renderer.domElement); // 문서에 요소 추가
+
+      const geometry = new THREE.BoxGeometry(); // 면과 점
+      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // 속성
+      const cube = new THREE.Mesh(geometry, material); // 대입
+      scene.add(cube); // 장면에 추가
+
+      camera.position.z = 5; // 카메라 위치 조정
+
+      function animate() {
+        // 애니메이션
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera); // 렌더러에 장면과 카메라 렌더해주기
+      }
+      animate(); // 실행
     </script>
   </body>
 </html>
